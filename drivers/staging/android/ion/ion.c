@@ -1321,12 +1321,12 @@ struct ion_device *ion_device_create(void)
 	}
 
 	idev->debug_root = debugfs_create_dir("ion", NULL);
-	if (!idev->debug_root) {
+	if (!idev->debug_root)
 		pr_err("ion: failed to create debugfs root directory.\n");
-		goto debugfs_done;
-	}
 
-debugfs_done:
+	idev->heaps_debug_root = debugfs_create_dir("heaps", idev->debug_root);
+	if (!idev->heaps_debug_root)
+		pr_err("ion: failed to create debugfs heaps directory.\n");
 
 	idev->buffers = RB_ROOT;
 	mutex_init(&idev->buffer_lock);
