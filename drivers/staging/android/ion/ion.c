@@ -118,6 +118,8 @@ static struct ion_buffer *ion_buffer_create(struct ion_heap *heap,
 
 	buffer->heap = heap;
 	buffer->flags = flags;
+	buffer->dev = dev;
+	buffer->size = len;
 
 	ret = heap->ops->allocate(heap, buffer, len, flags);
 
@@ -147,11 +149,6 @@ static struct ion_buffer *ion_buffer_create(struct ion_heap *heap,
 		heap->alloc_bytes_wm = heap->num_of_alloc_bytes;
 	spin_unlock(&heap->stat_lock);
 
-	buffer->dev = dev;
-	buffer->size = len;
-
-	buffer->dev = dev;
-	buffer->size = len;
 	INIT_LIST_HEAD(&buffer->attachments);
 	INIT_LIST_HEAD(&buffer->vmas);
 	mutex_init(&buffer->lock);
