@@ -116,6 +116,8 @@ static struct adreno_device device_3d0 = {
 		.skipsaverestore = 1,
 		.usesgmem = 1,
 	},
+	.pwr_on_work = __WORK_INITIALIZER(device_3d0.pwr_on_work,
+		adreno_pwr_on_work),
 };
 
 /* Ptr to array for the current set of fault detect registers */
@@ -1327,6 +1329,10 @@ static int adreno_probe(struct platform_device *pdev)
 		KGSL_DRV_WARN(device,
 			"Failed to get gpuhtw LLC slice descriptor %ld\n",
 			PTR_ERR(adreno_dev->gpuhtw_llc_slice));
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4301310a0c95... msm: kgsl: Wake GPU upon receiving an ioctl rather than upon touch input
 out:
 	if (status) {
 		adreno_ringbuffer_close(adreno_dev);
