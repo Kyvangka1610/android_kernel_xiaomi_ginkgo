@@ -3039,6 +3039,14 @@ static inline int update_preferred_cluster(struct related_thread_group *grp,
 
 static inline void add_new_task_to_grp(struct task_struct *new) {}
 
+<<<<<<< HEAD
+=======
+static inline int same_freq_domain(int src_cpu, int dst_cpu)
+{
+	return 1;
+}
+
+>>>>>>> 6a83256f120e... sched/fair: Make active balance CPU reservations independent of WALT
 static inline int alloc_related_thread_groups(void) { return 0; }
 
 #define trace_sched_cpu_load(...)
