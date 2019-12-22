@@ -312,6 +312,10 @@ static int max_sched_tunable_scaling = SCHED_TUNABLESCALING_END-1;
 static int sysctl_sched_boost = 0;
 #endif
 
+#ifndef CONFIG_SCHED_WALT
+static int sysctl_sched_boost = 0;
+#endif
+
 #ifdef CONFIG_COMPACTION
 static int min_extfrag_threshold;
 static int max_extfrag_threshold = 1000;
