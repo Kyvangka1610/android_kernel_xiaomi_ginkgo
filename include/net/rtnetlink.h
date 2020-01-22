@@ -95,7 +95,6 @@ struct rtnl_link_ops {
 
 	unsigned int		slave_maxtype;
 	bool			netns_refund;
-	int			slave_maxtype;
 	const struct nla_policy	*slave_policy;
 	int			(*slave_validate)(struct nlattr *tb[],
 						  struct nlattr *data[],
