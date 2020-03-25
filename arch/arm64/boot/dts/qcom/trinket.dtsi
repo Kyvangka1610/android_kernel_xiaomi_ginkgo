@@ -544,13 +544,6 @@
 			reg = <0 0x5f800000 0 0x1e00000>;
 		};
 
-		ramoops_region: ramoops_region@0xa1600000 {
-			compatible = "ramoops";
-			reg = <0 0xa1600000 0 0x400000>;
-			console-size = <0x200000>;
-			pmsg-size = <0x200000>;
-		};
-
 		qseecom_mem: qseecom_region@5e400000 {
 			compatible = "shared-dma-pool";
 			no-map;
@@ -618,6 +611,16 @@
 			alignment = <0 0x400000>;
 			size = <0 0x2000000>;
 			linux,cma-default;
+		};
+
+		/* reserve for pstore */
+		ramoops_mem: ramoops@61600000 {
+			compatible = "ramoops";
+			reg = <0x0 0x61600000 0x0 0x00400000>;
+
+			record-size = <0x80000>;
+			pmsg-size = <0x200000>;
+			console-size = <0x100000>;
 		};
 	};
 };
