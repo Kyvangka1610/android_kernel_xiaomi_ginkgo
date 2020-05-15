@@ -146,7 +146,7 @@ static int tsens2xxx_get_temp(struct tsens_sensor *sensor, int *temp)
 	struct tsens_device *tmdev = NULL, *tmdev_itr;
 	unsigned int code, ret, tsens_ret;
 	void __iomem *sensor_addr, *trdy;
-	int rc = 0, last_temp = 0, last_temp2 = 0, last_temp3 = 0, count = 0;
+	int last_temp = 0, last_temp2 = 0, last_temp3 = 0, count = 0;
 	static atomic_t in_tsens_reinit;
 
 	if (!sensor)
