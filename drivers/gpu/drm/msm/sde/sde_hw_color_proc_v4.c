@@ -1,5 +1,4 @@
 /* Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
- * Copyright (c) 2018, Pal Zoltan Illes (tbalden) - kcal rgb
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -13,22 +12,6 @@
 #include <drm/msm_drm_pp.h>
 #include "sde_hw_color_proc_common_v4.h"
 #include "sde_hw_color_proc_v4.h"
-
-static unsigned short kcal_red = 256;
-static unsigned short kcal_green = 256;
-static unsigned short kcal_blue = 256;
-static unsigned short kcal_hue = 0;
-static unsigned short kcal_sat = 255;
-static unsigned short kcal_val = 255;
-static unsigned short kcal_cont = 255;
-
-module_param(kcal_red, short, 0644);
-module_param(kcal_green, short, 0644);
-module_param(kcal_blue, short, 0644);
-module_param(kcal_hue, short, 0644);
-module_param(kcal_sat, short, 0644);
-module_param(kcal_val, short, 0644);
-module_param(kcal_cont, short, 0644);
 
 static int sde_write_3d_gamut(struct sde_hw_blk_reg_map *hw,
 		struct drm_msm_3d_gamut *payload, u32 base,
@@ -225,20 +208,27 @@ void sde_setup_dspp_pccv4(struct sde_hw_dspp *ctx, void *cfg)
 	struct drm_msm_pcc_coeff *coeffs = NULL;
 	int i = 0;
 	u32 base = 0;
+<<<<<<< HEAD
 #if 1
 	int enable = 0, r=255,g=255,b=255, min = 20;
 #endif
+=======
+>>>>>>> c44aa938b980... drm: sde: Drop current KCAL implementation
 
 	if (!ctx || !cfg) {
 		DRM_ERROR("invalid param ctx %pK cfg %pK\n", ctx, cfg);
 		return;
 	}
+<<<<<<< HEAD
 #if 1
 	pr_info("%s [CLEANSLATE] kcal setup... \n",__func__);
 	if (r<min) r= min;
 	if (g<min) g= min;
 	if (b<min) b= min;
 #endif
+=======
+
+>>>>>>> c44aa938b980... drm: sde: Drop current KCAL implementation
 	if (!hw_cfg->payload) {
 		DRM_DEBUG_DRIVER("disable pcc feature\n");
 		SDE_REG_WRITE(&ctx->hw, ctx->cap->sblk->pcc.base, 0);
@@ -252,6 +242,7 @@ void sde_setup_dspp_pccv4(struct sde_hw_dspp *ctx, void *cfg)
 	}
 
 	pcc_cfg = hw_cfg->payload;
+
 	for (i = 0; i < PCC_NUM_PLANES; i++) {
 		base = ctx->cap->sblk->pcc.base + (i * sizeof(u32));
 		switch (i) {
@@ -288,6 +279,7 @@ void sde_setup_dspp_pccv4(struct sde_hw_dspp *ctx, void *cfg)
 		}
 
 		SDE_REG_WRITE(&ctx->hw, base + PCC_C_OFF, coeffs->c);
+<<<<<<< HEAD
 // ====
 // RED
 #if 1
@@ -314,6 +306,11 @@ void sde_setup_dspp_pccv4(struct sde_hw_dspp *ctx, void *cfg)
 #endif
 		SDE_REG_WRITE(&ctx->hw, base + PCC_B_OFF, coeffs->b);
 // =====
+=======
+		SDE_REG_WRITE(&ctx->hw, base + PCC_R_OFF, coeffs->r);
+		SDE_REG_WRITE(&ctx->hw, base + PCC_G_OFF, coeffs->g);
+		SDE_REG_WRITE(&ctx->hw, base + PCC_B_OFF, coeffs->b);
+>>>>>>> c44aa938b980... drm: sde: Drop current KCAL implementation
 		SDE_REG_WRITE(&ctx->hw, base + PCC_RG_OFF, coeffs->rg);
 		SDE_REG_WRITE(&ctx->hw, base + PCC_RB_OFF, coeffs->rb);
 		SDE_REG_WRITE(&ctx->hw, base + PCC_GB_OFF, coeffs->gb);
