@@ -348,6 +348,16 @@ BUILD_DEBUG_VERSION := y
 
 #Enable this flag to build driver in diag version
 BUILD_DIAG_VERSION := y
+<<<<<<< HEAD
+=======
+
+# Debug specific features
+CONFIG_FEATURE_TSO_DEBUG := n
+CONFIG_WLAN_NAPI_DEBUG := n
+CONFIG_WLAN_FEATURE_P2P_DEBUG := n
+CONFIG_FEATURE_FW_LOG_PARSING := n
+CONFIG_DP_TRACE := n
+>>>>>>> 621cd3c01ba6... Revert "qcacld-3.0: Nuke as much debug bloat as possible"
 
 ifeq ($(CONFIG_SLUB_DEBUG), y)
 	PANIC_ON_BUG := y
@@ -651,6 +661,7 @@ endif
 ifneq ($(CONFIG_HIF_USB), y)
 CONFIG_WLAN_LOGGING_SOCK_SVC := y
 endif
+<<<<<<< HEAD
 
 ifneq ($(TARGET_BUILD_VARIANT),user)
 CONFIG_DESC_DUP_DETECT_DEBUG := y
@@ -660,6 +671,9 @@ endif
 CONFIG_DP_TRACE := y
 #Enable Beacon Reception Stats
 CONFIG_FEATURE_BECN_STATS := y
+=======
+CONFIG_FEATURE_BECN_STATS := n
+>>>>>>> 621cd3c01ba6... Revert "qcacld-3.0: Nuke as much debug bloat as possible"
 
 #enable MPTA helper for QCS405
 ifeq ($(CONFIG_ARCH_QCS405), y)
