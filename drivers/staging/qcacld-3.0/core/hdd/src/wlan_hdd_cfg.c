@@ -5189,6 +5189,14 @@ struct reg_table_entry g_registry_table[] = {
 			    (void *)
 			    CFG_ACTION_OUI_DISABLE_AGGRESSIVE_EDCA_DEFAULT),
 
+	REG_VARIABLE_STRING(CFG_ACTION_OUI_RECONN_ASSOCTIMEOUT,
+			    WLAN_PARAM_String,
+			    struct hdd_config,
+			    action_oui_str[ACTION_OUI_HOST_RECONN],
+			    VAR_FLAGS_OPTIONAL,
+			    (void *)
+			    CFG_ACTION_OUI_RECONN_ASSOCTIMEOUT_DEFAULT),
+
 	REG_VARIABLE(CFG_DTIM_1CHRX_ENABLE_NAME, WLAN_PARAM_Integer,
 		struct hdd_config, enable_dtim_1chrx,
 		VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
@@ -8376,6 +8384,8 @@ void hdd_cfg_print(struct hdd_context *hdd_ctx)
 		hdd_ctx->config->enable_phy_reg_retention);
 	hdd_debug("Name = [btm_offload_config] value = [0x%x]",
 		  hdd_ctx->config->btm_offload_config);
+	hdd_debug("Name = [btm_validity_timer] value = [0x%x]",
+		  hdd_ctx->config->btm_validity_timer);
 	hdd_cfg_print_sae(hdd_ctx);
 	hdd_debug("Name = [btm_solicited_timeout] value = [0x%x]",
 		  hdd_ctx->config->btm_solicited_timeout);
@@ -8733,7 +8743,7 @@ QDF_STATUS hdd_parse_config_ini(struct hdd_context *hdd_ctx)
 
 	hdd_debug("qcom_cfg.ini Size %zu", fw->size);
 
-	buffer = (char *)qdf_mem_malloc(fw->size);
+	buffer = (char *)qdf_mem_malloc(fw->size + 1);
 
 	if (NULL == buffer) {
 		hdd_err("qdf_mem_malloc failure");
