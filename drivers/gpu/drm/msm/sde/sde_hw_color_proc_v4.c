@@ -208,27 +208,21 @@ void sde_setup_dspp_pccv4(struct sde_hw_dspp *ctx, void *cfg)
 	struct drm_msm_pcc_coeff *coeffs = NULL;
 	int i = 0;
 	u32 base = 0;
-<<<<<<< HEAD
 #if 1
 	int enable = 0, r=255,g=255,b=255, min = 20;
 #endif
-=======
->>>>>>> c44aa938b980... drm: sde: Drop current KCAL implementation
 
 	if (!ctx || !cfg) {
 		DRM_ERROR("invalid param ctx %pK cfg %pK\n", ctx, cfg);
 		return;
 	}
-<<<<<<< HEAD
 #if 1
 	pr_info("%s [CLEANSLATE] kcal setup... \n",__func__);
 	if (r<min) r= min;
 	if (g<min) g= min;
 	if (b<min) b= min;
 #endif
-=======
 
->>>>>>> c44aa938b980... drm: sde: Drop current KCAL implementation
 	if (!hw_cfg->payload) {
 		DRM_DEBUG_DRIVER("disable pcc feature\n");
 		SDE_REG_WRITE(&ctx->hw, ctx->cap->sblk->pcc.base, 0);
@@ -279,7 +273,6 @@ void sde_setup_dspp_pccv4(struct sde_hw_dspp *ctx, void *cfg)
 		}
 
 		SDE_REG_WRITE(&ctx->hw, base + PCC_C_OFF, coeffs->c);
-<<<<<<< HEAD
 // ====
 // RED
 #if 1
@@ -306,11 +299,9 @@ void sde_setup_dspp_pccv4(struct sde_hw_dspp *ctx, void *cfg)
 #endif
 		SDE_REG_WRITE(&ctx->hw, base + PCC_B_OFF, coeffs->b);
 // =====
-=======
 		SDE_REG_WRITE(&ctx->hw, base + PCC_R_OFF, coeffs->r);
 		SDE_REG_WRITE(&ctx->hw, base + PCC_G_OFF, coeffs->g);
 		SDE_REG_WRITE(&ctx->hw, base + PCC_B_OFF, coeffs->b);
->>>>>>> c44aa938b980... drm: sde: Drop current KCAL implementation
 		SDE_REG_WRITE(&ctx->hw, base + PCC_RG_OFF, coeffs->rg);
 		SDE_REG_WRITE(&ctx->hw, base + PCC_RB_OFF, coeffs->rb);
 		SDE_REG_WRITE(&ctx->hw, base + PCC_GB_OFF, coeffs->gb);
