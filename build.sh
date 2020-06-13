@@ -16,8 +16,9 @@ export NM=/home/kyvangka1610/kernel/android_prebuilts_clang_host_linux-x86_clang
 export OBJCOPY=/home/kyvangka1610/kernel/android_prebuilts_clang_host_linux-x86_clang-6284175/bin/llvm-objcopy
 export OBJDUMP=/home/kyvangka1610/kernel/android_prebuilts_clang_host_linux-x86_clang-6284175/bin/llvm-objdump
 export STRIP=/home/kyvangka1610/kernel/android_prebuilts_clang_host_linux-x86_clang-6284175/bin/llvm-strip
-make O=out vendor/ginkgo-perf_defconfig
-make -j$PROCS O=out ARCH=arm64 \
+export out=/home/kyvangka1610/out
+make O=$out vendor/ginkgo-perf_defconfig
+make -j$PROCS O=$out ARCH=arm64 \
 	CROSS_COMPILE=$CROSS_COMPILE \
 	CROSS_COMPILE_ARM32=$CROSS_COMPILE_ARM32 \
 	CC=$CC \
