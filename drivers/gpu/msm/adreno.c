@@ -101,15 +101,9 @@ static struct adreno_device device_3d0 = {
 	.ft_policy = KGSL_FT_DEFAULT_POLICY,
 	.ft_pf_policy = KGSL_FT_PAGEFAULT_DEFAULT_POLICY,
 	.long_ib_detect = 1,
-<<<<<<< HEAD
-	.input_work = __WORK_INITIALIZER(device_3d0.input_work,
-		adreno_input_work),
-	.pwrctrl_flag = BIT(ADRENO_HWCG_CTRL) | BIT(ADRENO_THROTTLING_CTRL),
-=======
 	.pwrctrl_flag = BIT(ADRENO_SPTP_PC_CTRL) | BIT(ADRENO_PPD_CTRL) |
 		BIT(ADRENO_LM_CTRL) | BIT(ADRENO_HWCG_CTRL) |
 		BIT(ADRENO_THROTTLING_CTRL),
->>>>>>> fa35648abdfa... msm: kgsl: Wake GPU upon receiving an ioctl rather than upon touch input
 	.profile.enabled = false,
 	.active_list = LIST_HEAD_INIT(device_3d0.active_list),
 	.active_list_lock = __SPIN_LOCK_UNLOCKED(device_3d0.active_list_lock),
