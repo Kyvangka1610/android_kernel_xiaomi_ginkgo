@@ -668,6 +668,7 @@ struct request_queue {
 =======
 #define QUEUE_FLAG_DEFAULT	((1 << QUEUE_FLAG_STACKABLE)	|	\
 				 (1 << QUEUE_FLAG_SAME_COMP)	|	\
+				 (1 << QUEUE_FLAG_SAME_FORCE)	|	\
 				 (1 << QUEUE_FLAG_NOXMERGES))
 
 #define QUEUE_FLAG_MQ_DEFAULT	((1 << QUEUE_FLAG_STACKABLE)	|	\
@@ -676,6 +677,7 @@ struct request_queue {
 >>>>>>> bd6141cd5a02... block: Do not poll MQ block devices
 =======
 				 (1 << QUEUE_FLAG_SAME_COMP)	|	\
+				 (1 << QUEUE_FLAG_SAME_FORCE)	|	\
 				 (1 << QUEUE_FLAG_NOXMERGES))
 >>>>>>> 7747488fb6e8... block: Disable extended merges by default
 
