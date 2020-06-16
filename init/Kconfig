@@ -1114,9 +1114,7 @@ config STUNE_ASSIST
 	depends on SCHED_TUNE
 	depends on ANDROID
 	help
-<<<<<<< HEAD
 	  This option enables in-kernel overrides for SchedTune values.
-=======
 	  This option enables the configuration of default SchedTune
 	  parameters from kernel.
 config DYNAMIC_STUNE_BOOST
@@ -1125,7 +1123,6 @@ config DYNAMIC_STUNE_BOOST
 	help
 	  This option extends the SchedTune framework and provides APIs to
 	  activate and reset SchedTune boosting from anywhere in the kernel.
->>>>>>> e8b782aa5b93... sched/tune: Add initial support for Dynamic SchedTune Boost
 
 	  If unsure, say N.
 
