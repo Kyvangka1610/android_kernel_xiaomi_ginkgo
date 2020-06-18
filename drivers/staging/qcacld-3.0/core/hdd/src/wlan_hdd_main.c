@@ -8998,41 +8998,6 @@ void hdd_bus_bw_compute_reset_prev_txrx_stats(struct hdd_adapter *adapter)
 
 #endif /* MSM_PLATFORM */
 
-<<<<<<< HEAD
-=======
-/**
- * wlan_hdd_init_tx_rx_histogram() - init tx/rx histogram stats
- * @hdd_ctx: hdd context
- *
- * Return: 0 for success or error code
- */
-static int wlan_hdd_init_tx_rx_histogram(struct hdd_context *hdd_ctx)
-{
-	hdd_ctx->hdd_txrx_hist = qdf_mem_malloc(
-		(sizeof(struct hdd_tx_rx_histogram) * NUM_TX_RX_HISTOGRAM));
-	if (hdd_ctx->hdd_txrx_hist == NULL) {
-		hdd_err("Failed malloc for hdd_txrx_hist");
-		return -ENOMEM;
-	}
-	return 0;
-}
-
-/**
- * wlan_hdd_deinit_tx_rx_histogram() - deinit tx/rx histogram stats
- * @hdd_ctx: hdd context
- *
- * Return: none
- */
-void wlan_hdd_deinit_tx_rx_histogram(struct hdd_context *hdd_ctx)
-{
-	if (!hdd_ctx || hdd_ctx->hdd_txrx_hist == NULL)
-		return;
-
-	qdf_mem_free(hdd_ctx->hdd_txrx_hist);
-	hdd_ctx->hdd_txrx_hist = NULL;
-}
-
->>>>>>> 621cd3c01ba6... Revert "qcacld-3.0: Nuke as much debug bloat as possible"
 #ifdef WLAN_DEBUG
 static uint8_t *convert_level_to_string(uint32_t level)
 {
