@@ -8176,13 +8176,8 @@ static int find_energy_efficient_cpu(struct sched_domain *sd,
 	if (need_idle)
 		sync = 0;
 
-<<<<<<< HEAD
-	if (sysctl_sched_sync_hint_enable && sync &&
-				bias_to_waker_cpu(p, cpu, rtg_target)) {
-=======
 	if (sysctl_sched_sync_hint_enable && sync && about_to_idle &&
 				bias_to_this_cpu(p, cpu, rtg_target)) {
->>>>>>> 12eb67a4c3f2... sched/fair: honor sync only if CPU is about to goto idle
 		target_cpu = cpu;
 		fbt_env.fastpath = SYNC_WAKEUP;
 		goto out;
