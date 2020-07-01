@@ -205,14 +205,6 @@ static int cpu_notifier_cb(struct notifier_block *nb,
 
 	state = get_boost_state(b);
 
-	/* Unboost when the screen is off */
-	if (test_bit(SCREEN_OFF, &b->state)) {
-		policy->min = policy->cpuinfo.min_freq;
-		policy->min = get_idle_freq(policy);
-		sysctl_sched_energy_aware = 1;
-		return NOTIFY_OK;
-	}
-
 	/* Boost CPU to max frequency for max boost */
 	if (test_bit(MAX_BOOST, &b->state)) {
 		sysctl_sched_energy_aware = 0;
@@ -232,7 +224,6 @@ static int cpu_notifier_cb(struct notifier_block *nb,
 		policy->min = max(policy->cpuinfo.min_freq, min_freq);
 	}
 
-	/* If we are not boosting max for app launch/device wake, enable EAS */
 	sysctl_sched_energy_aware = 1;
 
 	return NOTIFY_OK;
