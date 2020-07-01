@@ -9,12 +9,6 @@
 #include <linux/cpufreq.h>
 #include <linux/fb.h>
 #include <linux/input.h>
-#include <linux/kthread.h>
-#include <linux/msm_drm_notify.h>
-#include <linux/sched.h>
-#include <linux/sched/sysctl.h>
-#include <linux/slab.h>
-#include <linux/version.h>
 #include <linux/moduleparam.h>
 #include <linux/slab.h>
 
@@ -206,9 +200,8 @@ static int cpu_notifier_cb(struct notifier_block *nb,
 	state = get_boost_state(b);
 
 	/* Boost CPU to max frequency for max boost */
-	if (test_bit(MAX_BOOST, &b->state)) {
-		sysctl_sched_energy_aware = 0;
-		policy->min = get_max_boost_freq(policy);
+	if (state & MAX_BOOST) {
+		policy->min = policy->max;
 		return NOTIFY_OK;
 	}
 
@@ -223,8 +216,6 @@ static int cpu_notifier_cb(struct notifier_block *nb,
 		min_freq = get_min_freq(b, policy->cpu);
 		policy->min = max(policy->cpuinfo.min_freq, min_freq);
 	}
-
-	sysctl_sched_energy_aware = 1;
 
 	return NOTIFY_OK;
 }
