@@ -142,13 +142,6 @@ static struct ion_buffer *ion_buffer_create(struct ion_heap *heap,
 		goto err1;
 	}
 
-	spin_lock(&heap->stat_lock);
-	heap->num_of_buffers++;
-	heap->num_of_alloc_bytes += len;
-	if (heap->num_of_alloc_bytes > heap->alloc_bytes_wm)
-		heap->alloc_bytes_wm = heap->num_of_alloc_bytes;
-	spin_unlock(&heap->stat_lock);
-
 	INIT_LIST_HEAD(&buffer->attachments);
 	INIT_LIST_HEAD(&buffer->vmas);
 	mutex_init(&buffer->lock);
@@ -1318,9 +1311,6 @@ struct ion_device *ion_device_create(void)
 	}
 
 	idev->debug_root = debugfs_create_dir("ion", NULL);
-
-	idev->heaps_debug_root = debugfs_create_dir("heaps", idev->debug_root);
-	if (!idev->heaps_debug_root)
 		pr_err("ion: failed to create debugfs heaps directory.\n");
 
 	idev->buffers = RB_ROOT;
