@@ -229,6 +229,24 @@ dtb-$(CONFIG_ARCH_SDMMAGPIE)	+= sdmmagpie-rumi.dtb \
 endif
 
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
+ifeq ($(CONFIG_MACH_XIAOMI),y)
+	dtbo-$(CONFIG_ARCH_TRINKET) += \
+		trinket-rumi-overlay.dtbo \
+		trinket-idp-overlay.dtbo \
+		trinket-qrd-overlay.dtbo \
+		trinket-external-codec-idp-overlay.dtbo \
+		trinket-usbc-external-codec-idp-overlay.dtbo \
+		trinket-usbc-idp-overlay.dtbo \
+		trinket-dp-idp-overlay.dtbo
+
+trinket-rumi-overlay.dtbo-base := trinket.dtb
+trinket-idp-overlay.dtbo-base := trinket.dtb
+trinket-qrd-overlay.dtbo-base := trinket.dtb
+trinket-external-codec-idp-overlay.dtbo-base := trinket.dtb
+trinket-usbc-external-codec-idp-overlay.dtbo-base := trinket.dtb
+trinket-usbc-idp-overlay.dtbo-base := trinket.dtb
+trinket-dp-idp-overlay.dtbo-base := trinket.dtb
+else
 	dtbo-$(CONFIG_ARCH_TRINKET) += \
 		trinket-rumi-overlay.dtbo \
 		trinket-idp-overlay.dtbo \
@@ -255,6 +273,7 @@ qcm6125-iot-usbc-idp-overlay.dtbo-base := qcm6125.dtb
 qcs6125-iot-usbc-idp-overlay.dtbo-base := qcs6125.dtb
 qcm6125-iot-dp-idp-overlay.dtbo-base := qcm6125.dtb
 qcs6125-iot-dp-idp-overlay.dtbo-base := qcs6125.dtb
+endif
 else
 dtb-$(CONFIG_ARCH_TRINKET)	+= trinket-rumi.dtb \
 	trinket-idp.dtb \
