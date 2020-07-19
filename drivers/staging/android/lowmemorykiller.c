@@ -68,7 +68,7 @@
 static int enable_lmk = 1;
 module_param_named(enable_lmk, enable_lmk, int, 0644);
 
-static u32 lowmem_debug_level = 1;
+static u32 lowmem_debug_level = 0;
 static short lowmem_adj[6] = {
 	0,
 	1,
@@ -119,8 +119,8 @@ enum {
 };
 
 /* User knob to enable/disable adaptive lmk feature */
-static int enable_adaptive_lmk = ADAPTIVE_LMK_DISABLED;
-module_param_named(enable_adaptive_lmk, enable_adaptive_lmk, int, 0644);
+//static int enable_adaptive_lmk = ADAPTIVE_LMK_DISABLED;
+//module_param_named(enable_adaptive_lmk, enable_adaptive_lmk, int, 0644);
 
 /*
  * This parameter controls the behaviour of LMK when vmpressure is in
@@ -160,8 +160,8 @@ static int adjust_minadj(short *min_score_adj)
 {
 	int ret = VMPRESSURE_NO_ADJUST;
 
-	if (enable_adaptive_lmk != ADAPTIVE_LMK_ENABLED)
-		return 0;
+	//if (enable_adaptive_lmk != ADAPTIVE_LMK_ENABLED)
+	return 0;
 
 	if (atomic_read(&shift_adj) &&
 	    (*min_score_adj > adj_max_shift)) {
@@ -183,8 +183,8 @@ static int lmk_vmpressure_notifier(struct notifier_block *nb,
 	unsigned long pressure = action;
 	int array_size = ARRAY_SIZE(lowmem_adj);
 
-	if (enable_adaptive_lmk != ADAPTIVE_LMK_ENABLED)
-		return 0;
+	//if (enable_adaptive_lmk != ADAPTIVE_LMK_ENABLED)
+	return 0;
 
 	if (pressure >= 95) {
 		other_file = global_node_page_state(NR_FILE_PAGES) -
@@ -193,7 +193,7 @@ static int lmk_vmpressure_notifier(struct notifier_block *nb,
 		other_free = global_zone_page_state(NR_FREE_PAGES);
 
 		atomic_set(&shift_adj, 1);
-		trace_almk_vmpressure(pressure, other_free, other_file);
+		//trace_almk_vmpressure(pressure, other_free, other_file);
 	} else if (pressure >= 90) {
 		if (lowmem_adj_size < array_size)
 			array_size = lowmem_adj_size;
@@ -209,7 +209,7 @@ static int lmk_vmpressure_notifier(struct notifier_block *nb,
 		if (other_free < lowmem_minfree[array_size - 1] &&
 		    other_file < vmpressure_file_min) {
 			atomic_set(&shift_adj, 1);
-			trace_almk_vmpressure(pressure, other_free, other_file);
+			//trace_almk_vmpressure(pressure, other_free, other_file);
 		}
 	} else if (atomic_read(&shift_adj)) {
 		other_file = global_node_page_state(NR_FILE_PAGES) -
@@ -223,7 +223,7 @@ static int lmk_vmpressure_notifier(struct notifier_block *nb,
 		 * Since vmpressure has improved, reset shift_adj to avoid
 		 * false adaptive LMK trigger.
 		 */
-		trace_almk_vmpressure(pressure, other_free, other_file);
+		//trace_almk_vmpressure(pressure, other_free, other_file);
 		atomic_set(&shift_adj, 0);
 	}
 
@@ -522,7 +522,7 @@ static unsigned long lowmem_scan(struct shrinker *s, struct shrink_control *sc)
 		     other_file, min_score_adj);
 
 	if (min_score_adj == OOM_SCORE_ADJ_MAX + 1) {
-		trace_almk_shrink(0, ret, other_free, other_file, 0);
+		//trace_almk_shrink(0, ret, other_free, other_file, 0);
 		lowmem_print(5, "%s %lu, %x, return 0\n",
 			     __func__, sc->nr_to_scan, sc->gfp_mask);
 		if (lock_required)
@@ -664,11 +664,11 @@ static unsigned long lowmem_scan(struct shrinker *s, struct shrink_control *sc)
 		rcu_read_unlock();
 		/* give the system time to free up the memory */
 		msleep_interruptible(20);
-		trace_almk_shrink(selected_tasksize, ret,
-				  other_free, other_file,
-				  selected_oom_score_adj);
+		//trace_almk_shrink(selected_tasksize, ret,
+		//		  other_free, other_file,
+		//		  selected_oom_score_adj);
 	} else {
-		trace_almk_shrink(1, ret, other_free, other_file, 0);
+		//trace_almk_shrink(1, ret, other_free, other_file, 0);
 		rcu_read_unlock();
 		if (other_free < lowmem_minfree[0] &&
 		    other_file < lowmem_minfree[0])
@@ -690,12 +690,12 @@ static int lmk_hotplug_callback(struct notifier_block *self,
 {
 	switch (action) {
 	case MEM_GOING_OFFLINE:
-		if (enable_adaptive_lmk == ADAPTIVE_LMK_ENABLED)
-			enable_adaptive_lmk = ADAPTIVE_LMK_WAS_ENABLED;
+		//if (enable_adaptive_lmk == ADAPTIVE_LMK_ENABLED)
+		//	enable_adaptive_lmk = ADAPTIVE_LMK_WAS_ENABLED;
 		break;
 	case MEM_OFFLINE:
-		if (enable_adaptive_lmk == ADAPTIVE_LMK_WAS_ENABLED)
-			enable_adaptive_lmk = ADAPTIVE_LMK_ENABLED;
+		//if (enable_adaptive_lmk == ADAPTIVE_LMK_WAS_ENABLED)
+		//	enable_adaptive_lmk = ADAPTIVE_LMK_ENABLED;
 		break;
 	default:
 		break;
