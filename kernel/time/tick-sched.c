@@ -1030,7 +1030,6 @@ void tick_nohz_idle_enter(void)
 {
 	struct tick_sched *ts;
 
-	lockdep_assert_irqs_enabled();
 	/*
 	 * Update the idle state in the scheduler domain hierarchy
 	 * when tick_nohz_stop_tick() is called from the idle loop.
