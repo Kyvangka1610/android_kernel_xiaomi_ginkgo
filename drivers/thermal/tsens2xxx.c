@@ -231,13 +231,6 @@ static int tsens2xxx_get_temp(struct tsens_sensor *sensor, int *temp)
 			/* Notify thermal fwk */
 			list_for_each_entry(tmdev_itr,
 						&tsens_device_list, list) {
-				rc = __tsens2xxx_hw_init(tmdev_itr);
-				if (rc) {
-					pr_err(
-					"%s: Failed to re-initialize TSENS controller\n",
-						__func__);
-					BUG();
-				}
 				queue_work(tmdev_itr->tsens_reinit_work,
 					&tmdev_itr->therm_fwk_notify);
 			}
