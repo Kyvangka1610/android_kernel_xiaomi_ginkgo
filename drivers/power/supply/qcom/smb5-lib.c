@@ -891,18 +891,52 @@ static bool is_cp_available(struct smb_charger *chg)
 	return !!chg->cp_psy;
 }
 
+static bool is_cp_topo_vbatt(struct smb_charger *chg)
+{
+	int rc;
+	bool is_vbatt;
+	union power_supply_propval pval;
+
+	if (!is_cp_available(chg))
+		return false;
+
+	rc = power_supply_get_property(chg->cp_psy,
+				POWER_SUPPLY_PROP_PARALLEL_OUTPUT_MODE, &pval);
+	if (rc < 0)
+		return false;
+
+	is_vbatt = (pval.intval == POWER_SUPPLY_PL_OUTPUT_VBAT);
+
+	smblib_dbg(chg, PR_WLS, "%s\n", is_vbatt ? "true" : "false");
+
+	return is_vbatt;
+}
+
 #define CP_TO_MAIN_ICL_OFFSET_PC		10
 int smblib_get_qc3_main_icl_offset(struct smb_charger *chg, int *offset_ua)
 {
 	union power_supply_propval pval = {0, };
 	int rc;
 
-	if (((chg->real_charger_type != POWER_SUPPLY_TYPE_USB_HVDCP_3)
-		&& (chg->real_charger_type != POWER_SUPPLY_TYPE_USB_HVDCP_3P5))
-		|| chg->hvdcp3_standalone_config || !is_cp_available(chg)) {
-		*offset_ua = 0;
-		return 0;
+	/*
+	 * Apply ILIM offset to main charger's FCC if all of the following
+	 * conditions are met:
+	 * - HVDCP3 adapter with CP as parallel charger
+	 * - Output connection topology is VBAT
+	 */
+	if (!is_cp_topo_vbatt(chg) || chg->hvdcp3_standalone_config
+		|| (chg->real_charger_type != POWER_SUPPLY_TYPE_USB_HVDCP_3))
+		return -EINVAL;
+
+	rc = power_supply_get_property(chg->cp_psy, POWER_SUPPLY_PROP_CP_ENABLE,
+					&pval);
+	if (rc < 0) {
+		smblib_err(chg, "Couldn't get CP ENABLE rc=%d\n", rc);
+		return rc;
 	}
+
+	if (!pval.intval)
+		return -EINVAL;
 
 	rc = power_supply_get_property(chg->cp_psy, POWER_SUPPLY_PROP_CP_ILIM,
 					&pval);
@@ -1316,6 +1350,7 @@ static int smblib_get_pulse_cnt(struct smb_charger *chg, int *count)
 #define USBIN_150MA	150000
 #define USBIN_500MA	500000
 #define USBIN_900MA	900000
+#define USBIN_1000MA	1000000
 static int set_sdp_current(struct smb_charger *chg, int icl_ua)
 {
 	int rc;
@@ -3768,6 +3803,24 @@ int smblib_get_prop_low_power(struct smb_charger *chg,
 int smblib_get_prop_input_current_settled(struct smb_charger *chg,
 					  union power_supply_propval *val)
 {
+	return smblib_get_charge_param(chg, &chg->param.icl_stat, &val->intval);
+}
+
+int smblib_get_prop_input_current_max(struct smb_charger *chg,
+					  union power_supply_propval *val)
+{
+	int icl_ua = 0, rc;
+
+	rc = smblib_get_charge_param(chg, &chg->param.usb_icl, &icl_ua);
+	if (rc < 0)
+		return rc;
+
+	if (is_override_vote_enabled_locked(chg->usb_icl_votable) &&
+					icl_ua < USBIN_1000MA) {
+		val->intval = USBIN_1000MA;
+		return 0;
+	}
+
 	return smblib_get_charge_param(chg, &chg->param.icl_stat, &val->intval);
 }
 
