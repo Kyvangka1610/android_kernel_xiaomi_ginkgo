@@ -1218,7 +1218,6 @@ static void handle_fifo_timeout(struct spi_geni_master *mas,
 		}
 	}
 
-}
 
 static int spi_geni_transfer_one(struct spi_master *spi,
 				struct spi_device *slv,

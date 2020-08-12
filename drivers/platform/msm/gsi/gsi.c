@@ -2854,7 +2854,7 @@ int gsi_pending_irq_type(void)
 	return gsi_readl(gsi_ctx->base +
 		GSI_EE_n_CNTXT_TYPE_IRQ_OFFS(ee));
 }
-EXPORT_SYMBOL(gsi_pending_irq_type);
+//EXPORT_SYMBOL(gsi_pending_irq_type);
 
 int gsi_start_channel(unsigned long chan_hdl)
 {
