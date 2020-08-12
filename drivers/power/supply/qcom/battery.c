@@ -49,6 +49,7 @@
 #define FCC_STEPPER_VOTER		"FCC_STEPPER_VOTER"
 #define FCC_VOTER			"FCC_VOTER"
 #define MAIN_FCC_VOTER			"MAIN_FCC_VOTER"
+#define PD_VOTER			"PD_VOTER"
 
 struct pl_data {
 	int			pl_mode;
@@ -254,7 +255,7 @@ static void cp_configure_ilim(struct pl_data *chip, const char *voter, int ilim)
 					== POWER_SUPPLY_PL_OUTPUT_VPH)
 		return;
 
-	target_icl = get_hvdcp3_icl_limit(chip);
+	target_icl = get_adapter_icl_based_ilim(chip);
 	ilim = (target_icl > 0) ? min(ilim, target_icl) : ilim;
 
 	rc = power_supply_get_property(chip->cp_master_psy,
@@ -742,7 +743,7 @@ static void get_fcc_stepper_params(struct pl_data *chip, int main_fcc_ua,
 		if (!chip->cp_ilim_votable)
 			chip->cp_ilim_votable = find_votable("CP_ILIM");
 
-		target_icl = get_hvdcp3_icl_limit(chip) * 2;
+		target_icl = get_adapter_icl_based_ilim(chip) * 2;
 		total_fcc_ua -= chip->main_fcc_ua;
 
 		/*
