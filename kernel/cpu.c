@@ -1042,8 +1042,7 @@ static int do_cpu_down(unsigned int cpu, enum cpuhp_state target)
 	 * cores by userspace down completely. Also expanded to lp cores
 	 */
 	if (cpumask_intersects(cpumask_of(cpu), cpu_lp_mask) ||
-	    cpumask_intersects(cpumask_of(cpu), cpu_perf_mask) ||
-	    cpumask_intersects(cpumask_of(cpu), cpu_perfp_mask)) {
+	    cpumask_intersects(cpumask_of(cpu), cpu_perf_mask)) {
 		pr_info("%s: trying to take down core %i\n", __func__, cpu);
 		return -EINVAL;
 	}
