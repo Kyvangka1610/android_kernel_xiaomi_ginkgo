@@ -17,7 +17,7 @@ export OBJCOPY=/home/kyvangka1610/kernel/clang-r399163/bin/llvm-objcopy
 export OBJDUMP=/home/kyvangka1610/kernel/clang-r399163/bin/llvm-objdump
 export STRIP=/home/kyvangka1610/kernel/clang-r399163/bin/llvm-strip
 export out=/home/kyvangka1610/out
-make O=$out vendor/ginkgo-perf_defconfig
+make O=$out vendor/sixteen_defconfig
 make -j$PROCS O=$out ARCH=arm64 \
 	CROSS_COMPILE=$CROSS_COMPILE \
 	CROSS_COMPILE_ARM32=$CROSS_COMPILE_ARM32 \
