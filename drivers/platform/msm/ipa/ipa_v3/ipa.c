@@ -8250,8 +8250,6 @@ int ipa3_plat_drv_probe(struct platform_device *pdev_p,
  */
 int ipa3_ap_suspend(struct device *dev)
 {
-	int i;
-
 	IPADBG("Enter...\n");
 
 	if (ipa3_ctx->use_ipa_pm) {
