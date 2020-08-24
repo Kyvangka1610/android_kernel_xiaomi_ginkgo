@@ -5966,3 +5966,14 @@ CONFIG_STACKDEPOT=y
 CONFIG_STACK_HASH_ORDER_SHIFT=20
 CONFIG_SBITMAP=y
 # CONFIG_STRING_SELFTEST is not set
+
+#
+# Xiaomi configuration options
+#
+CONFIG_MACH_XIAOMI=y
+CONFIG_MACH_XIAOMI_TRINKET=y
+
+#
+# Xiaomi board selection
+#
+# CONFIG_MACH_XIAOMI_C3J is not set
