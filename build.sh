@@ -1,40 +1,30 @@
-export PATH="$HOME/proton/bin:$PATH"
-SECONDS=0
-ZIPNAME="QuicksilveR-ginkgo-$(date '+%Y%m%d-%H%M').zip"
-
-if ! [ -d "$HOME/proton" ]; then
-echo "Proton clang not found! Cloning..."
-if ! git clone -q https://github.com/kdrag0n/proton-clang ~/proton; then
-echo "Cloning failed! Aborting..."
-exit 1
-fi
-fi
-
-mkdir -p out
-make O=out ARCH=arm64 vendor/ginkgo-perf_defconfig
-
-if [[ $1 == "-r" || $1 == "--regen" ]]; then
-cp out/.config arch/arm64/configs/vendor/ginkgo-perf_defconfig
-echo -e "\nRegened defconfig succesfully!"
-exit 0
-else
-echo -e "\nStarting compilation...\n"
-make -j16 O=out ARCH=arm64 CC=clang LD=ld.lld AR=llvm-ar AS=llvm-as NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- Image.gz-dtb
-fi
-
-if [ -f "out/arch/arm64/boot/Image.gz-dtb" ]; then
-git clone -q https://github.com/ghostrider-reborn/AnyKernel3
-cp out/arch/arm64/boot/Image.gz-dtb AnyKernel3
-rm -f *zip
-cd AnyKernel3
-zip -r9 "../$ZIPNAME" * -x '*.git*' README.md *placeholder
-cd ..
-rm -rf AnyKernel3
-echo -e "\nCompleted in $((SECONDS / 60)) minute(s) and $((SECONDS % 60)) second(s) !"
-echo "Zip: $ZIPNAME"
-if command -v gdrive &> /dev/null; then
-gdrive upload --share $ZIPNAME
-fi
-else
-echo -e "\nCompilation failed!"
-fi
+export KBUILD_BUILD_USER="elang"
+export KBUILD_BUILD_HOST="kyvangkaelang"
+export ARCH=arm64
+export SUBARCH=arm64
+export KBUILD_COMPILER_STRING=$(/home/kyvangka1610/kernel/clang-r399163/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
+LD_LIBRARY_PATH=/home/kyvangka1610/kernel/clang-r399163/lib:/home/kyvangka1610/kernel/clang-r399163/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH
+PATH=/home/kyvangka1610/kernel/clang-r399163/bin/:$PATH
+export PATH
+export PROCS=$(nproc --all)
+export CROSS_COMPILE=/home/kyvangka1610/kernel/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+export CROSS_COMPILE_ARM32=/home/kyvangka1610/kernel/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
+export CC=/home/kyvangka1610/kernel/clang-r399163/bin/clang
+export AR=/home/kyvangka1610/kernel/clang-r399163/bin/llvm-ar
+export NM=/home/kyvangka1610/kernel/clang-r399163/bin/llvm-nm
+export OBJCOPY=/home/kyvangka1610/kernel/clang-r399163/bin/llvm-objcopy
+export OBJDUMP=/home/kyvangka1610/kernel/clang-r399163/bin/llvm-objdump
+export STRIP=/home/kyvangka1610/kernel/clang-r399163/bin/llvm-strip
+export out=/home/kyvangka1610/out-new
+make O=$out vendor/sixteen_defconfig
+make -j$PROCS O=$out ARCH=arm64 \
+	CROSS_COMPILE=$CROSS_COMPILE \
+	CROSS_COMPILE_ARM32=$CROSS_COMPILE_ARM32 \
+	CC=$CC \
+	AR=$AR \
+	NM=$NM \
+	OBJCOPY=$OBJCOPY \
+	OBJDUMP=$OBJDUMP \
+	STRIP=$STRIP \
+	CLANG_TRIPLE=aarch64-linux-gnu-
