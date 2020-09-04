@@ -14123,7 +14123,6 @@ static ssize_t wlan_hdd_state_ctrl_param_write(struct file *filp,
 
 	if (strncmp(buf, wlan_off_str, strlen(wlan_off_str)) == 0) {
 		pr_debug("Wifi turning off from UI\n");
-		hdd_inform_wifi_off();
 		goto exit;
 	}
 
@@ -14152,6 +14151,7 @@ static ssize_t wlan_hdd_state_ctrl_param_write(struct file *filp,
 			ret = -EINVAL;
 			return ret;
 		}
+
 		hdd_start_complete(0);
 	}
 
