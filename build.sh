@@ -11,7 +11,7 @@ export LD_LIBRARY_PATH="/home/kyvangka1610/toolchain/Clang12/lib:$LD_LIBRARY_PAT
 export KBUILD_COMPILER_STRING="$(/home/kyvangka1610/toolchain/Clang12/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
 export CROSS_COMPILE=/home/kyvangka1610/toolchain/aarch64-linux-android-4.9/bin/aarch64-linux-android-
 export CROSS_COMPILE_ARM32=/home/kyvangka1610/toolchain/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
-export out=/home/kyvangka1610/out-new-R
+export out=/home/kyvangka1610/out-new-Q
 
 # Functions
 clang_build () {
