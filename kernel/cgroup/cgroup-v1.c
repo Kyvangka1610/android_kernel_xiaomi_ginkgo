@@ -15,6 +15,7 @@
 #include <linux/cgroupstats.h>
 #include <linux/binfmts.h>
 #include <linux/cpu_input_boost.h>
+#include <linux/devfreq_boost.h>
 
 #include <trace/events/cgroup.h>
 
@@ -558,6 +559,7 @@ static ssize_t __cgroup1_procs_write(struct kernfs_open_file *of,
 		!memcmp(of->kn->parent->name, "top-app", sizeof("top-app")) &&
 		task_is_zygote(current)) {
 		cpu_input_boost_kick_max(1000);
+		devfreq_boost_kick_max(DEVFREQ_MSM_CPUBW, 1000);
 	}
 
 out_finish:
