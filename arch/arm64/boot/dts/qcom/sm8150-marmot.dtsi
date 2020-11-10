@@ -120,7 +120,6 @@
 			mhi,data-type = <1>;
 			mhi,doorbell-mode = <3>;
 			mhi,ee = <0x4>;
-			mhi,db-mode-switch;
 		};
 
 		mhi_chan@106 {
