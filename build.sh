@@ -1,19 +1,54 @@
+#!/usr/bin/env bash
+#
+# Copyright (C) 2020 Kyvangka1610
+#
+# Simple Local Kernel Build Script
+#
+# Configured for Redmi Note 8 / ginkgo custom kernel source
+#
+# Setup build env with akhilnarang/scripts repo
+#
+# Use this script on root of kernel directory
+
+bold=$(tput bold)
+normal=$(tput sgr0)
+
 echo -e "\nStarting compilation...\n"
+
+# Clone toolchain
+if ! [ -d "$HOME/toolchain" ]; then
+echo "${bold}Proton clang not found! Cloning...${normal}"
+if ! git clone --depth=1 https://github.com/kdrag0n/proton-clang ~/proton; then
+echo "${bold}Proton Clang Done${normal}"
+exit 1
+fi
+fi
+echo "${bold}gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu not found! Cloning...${normal}"
+if ! git clone https://github.com/Kyvangka1610/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.git ~/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu; then
+echo "${bold}gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu Done${normal}"
+exit 1
+fi
+echo "${bold}gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf not found! Cloning...${normal}"
+if ! git clone https://github.com/Kyvangka1610/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf.git ~/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf; then
+echo "${bold}gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf Done${normal}"
+exit 1
+fi
+
 # ENV
 CONFIG=vendor/sixteen_defconfig
 KERNEL_DIR=$(pwd)
 PARENT_DIR="$(dirname "$KERNEL_DIR")"
-KERN_IMG="/home/kyvangka1610/out-new-Q/out/arch/arm64/boot/Image.gz-dtb"
+KERN_IMG="$HOME/out-new-Q/out/arch/arm64/boot/Image.gz-dtb"
 export KBUILD_BUILD_USER="elang"
 export KBUILD_BUILD_HOST="kyvangkaelang"
-export PATH="/home/kyvangka1610/toolchain/clang-r407598b/bin:$PATH"
-export LD_LIBRARY_PATH="/home/kyvangka1610/toolchain/clang-r407598b/lib:$LD_LIBRARY_PATH"
-export KBUILD_COMPILER_STRING="$(/home/kyvangka1610/toolchain/clang-r407598b/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
-export out=/home/kyvangka1610/out-new-Q
+export PATH="$HOME/toolchain/proton-clang/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/toolchain/proton-clang/lib:$LD_LIBRARY_PATH"
+export KBUILD_COMPILER_STRING="$($HOME/toolchain/proton-clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
+export out=$HOME/out-new-Q
 
 # Functions
 clang_build () {
-    make -j4 O=$out \
+    make -j$(nproc --all) O=$out \
                           ARCH=arm64 \
                           CC="clang" \
                           AR="llvm-ar" \
@@ -23,8 +58,8 @@ clang_build () {
 			              OBJCOPY="llvm-objcopy" \
 			              OBJDUMP="llvm-objdump" \
                           CLANG_TRIPLE=aarch64-linux-gnu- \
-                          CROSS_COMPILE="/home/kyvangka1610/toolchain/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-" \
-                          CROSS_COMPILE_ARM32="/home/kyvangka1610/toolchain/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-"
+                          CROSS_COMPILE="$HOME/toolchain/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-" \
+                          CROSS_COMPILE_ARM32="$HOME/toolchain/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-"
 }
 
 # Build kernel
@@ -50,7 +85,3 @@ if [ -f "$out/arch/arm64/boot/Image.gz-dtb" ] && [ -f "$out/arch/arm64/boot/dtbo
 else
  echo -e "\nCompilation failed!\n"
 fi;
-if [ $R == y ]; then
- git rs --hard $(git log --pretty=oneline|head -n2|tail -n1|awk '{ print $1}')
-fi;
-exit 0
