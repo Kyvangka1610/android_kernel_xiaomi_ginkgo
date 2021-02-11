@@ -10,6 +10,8 @@ export KBUILD_BUILD_HOST="kyvangkaelang"
 export PATH="/home/kyvangka1610/toolchain/proton-clang/bin:$PATH"
 export LD_LIBRARY_PATH="/home/kyvangka1610/toolchain/proton-clang/lib:$LD_LIBRARY_PATH"
 export KBUILD_COMPILER_STRING="$(/home/kyvangka1610/toolchain/proton-clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
+export CROSS_COMPILE=/home/kyvangka1610/toolchain/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+export CROSS_COMPILE_ARM32=/home/kyvangka1610/toolchain/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
 export out=/home/kyvangka1610/out-new-Q
 
 # Functions
@@ -24,8 +26,8 @@ clang_build () {
 			              OBJCOPY="llvm-objcopy" \
 			              OBJDUMP="llvm-objdump" \
                           CLANG_TRIPLE=aarch64-linux-gnu- \
-                          CROSS_COMPILE="/home/kyvangka1610/toolchain/aarch64-linux-android-4.9/bin/aarch64-linux-android-" \
-                          CROSS_COMPILE_ARM32="/home/kyvangka1610/toolchain/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
+                          CROSS_COMPILE=$CROSS_COMPILE \
+                          CROSS_COMPILE_ARM32=$CROSS_COMPILE_ARM32
 }
 
 # Build kernel
