@@ -24,8 +24,8 @@ clang_build () {
 			              OBJCOPY="llvm-objcopy" \
 			              OBJDUMP="llvm-objdump" \
                           CLANG_TRIPLE=aarch64-linux-gnu- \
-                          CROSS_COMPILE="/home/kyvangka1610/toolchain/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-" \
-                          CROSS_COMPILE_ARM32="/home/kyvangka1610/toolchain/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-"
+                          CROSS_COMPILE="/home/kyvangka1610/toolchain/aarch64-linux-android-4.9/bin/aarch64-linux-android-" \
+                          CROSS_COMPILE_ARM32="/home/kyvangka1610/toolchain/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-"
 }
 
 # Build kernel
