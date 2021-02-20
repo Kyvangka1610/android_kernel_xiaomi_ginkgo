@@ -7,9 +7,9 @@ PARENT_DIR="$(dirname "$KERNEL_DIR")"
 KERN_IMG="/home/kyvangka1610/out-new-R/out/arch/arm64/boot/Image.gz-dtb"
 export KBUILD_BUILD_USER="elang"
 export KBUILD_BUILD_HOST="kyvangkaelang"
-export PATH="/home/kyvangka1610/toolchain/proton-clang/bin:$PATH"
-export LD_LIBRARY_PATH="/home/kyvangka1610/toolchain/proton-clang/lib:$LD_LIBRARY_PATH"
-export KBUILD_COMPILER_STRING="$(/home/kyvangka1610/toolchain/proton-clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
+export PATH="/home/kyvangka1610/toolchain/Sixteen_Clang/bin:$PATH"
+export LD_LIBRARY_PATH="/home/kyvangka1610/toolchain/Sixteen_Clang/lib:$LD_LIBRARY_PATH"
+export KBUILD_COMPILER_STRING="$(/home/kyvangka1610/toolchain/Sixteen_Clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
 export out=/home/kyvangka1610/out-new-R
 
 # Functions
@@ -19,13 +19,13 @@ clang_build () {
                           CC="clang" \
                           AR="llvm-ar" \
                           NM="llvm-nm" \
-						  LD="ld.lld" \
-			              AS="llvm-as" \
-			              OBJCOPY="llvm-objcopy" \
-			              OBJDUMP="llvm-objdump" \
+			  LD="ld.lld" \
+			  AS="llvm-as" \
+			  OBJCOPY="llvm-objcopy" \
+			  OBJDUMP="llvm-objdump" \
                           CLANG_TRIPLE=aarch64-linux-gnu- \
-                          CROSS_COMPILE="/home/kyvangka1610/toolchain/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/bin/aarch64-none-linux-gnu-" \
-                          CROSS_COMPILE_ARM32="/home/kyvangka1610/toolchain/gcc-arm-10.2-2020.11-x86_64-arm-none-linux-gnueabihf/bin/arm-none-linux-gnueabihf-"
+                          CROSS_COMPILE=aarch64-linux-gnu- \
+                          CROSS_COMPILE_ARM32=arm-linux-gnueabi- 
 }
 
 # Build kernel
