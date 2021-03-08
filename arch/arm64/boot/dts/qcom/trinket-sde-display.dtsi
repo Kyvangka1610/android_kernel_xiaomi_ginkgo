@@ -553,6 +553,7 @@
 };
 
 &dsi_nt36672a_shenchao_video {
+	qcom,ulps-enabled;
 	qcom,mdss-dsi-t-clk-post = <0x0f>;
 	qcom,mdss-dsi-t-clk-pre = <0x37>;
 	qcom,mdss-dsi-display-timings {
@@ -571,6 +572,7 @@
 };
 
 &dsi_ft8719_huaxing_video {
+	qcom,ulps-enabled;
 	qcom,mdss-dsi-t-clk-post = <0x0e>;
 	qcom,mdss-dsi-t-clk-pre = <0x34>;
 	qcom,mdss-dsi-display-timings {
@@ -589,6 +591,7 @@
 };
 
 &dsi_nt36672a_tianma_video {
+	qcom,ulps-enabled;
 	qcom,mdss-dsi-t-clk-post = <0x0f>;
 	qcom,mdss-dsi-t-clk-pre = <0x37>;
 	qcom,mdss-dsi-display-timings {
