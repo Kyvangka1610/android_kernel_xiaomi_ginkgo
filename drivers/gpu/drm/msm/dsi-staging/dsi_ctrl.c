@@ -2335,7 +2335,7 @@ static bool dsi_ctrl_check_for_spurious_error_interrupts(
 
 	if ((jiffies_now - dsi_ctrl->jiffies_start) < intr_check_interval) {
 		if (dsi_ctrl->error_interrupt_count > interrupt_threshold) {
-			pr_warn("Detected spurious interrupts on dsi ctrl\n");
+			pr_debug("Detected spurious interrupts on dsi ctrl\n");
 			return true;
 		}
 	} else {
@@ -2398,7 +2398,7 @@ static void dsi_ctrl_handle_error_status(struct dsi_ctrl *dsi_ctrl,
 						cb_info.event_idx,
 						dsi_ctrl->cell_index,
 						0, 0, 0, 0);
-			pr_err("dsi FIFO OVERFLOW error: 0x%lx\n", error);
+			pr_debug("dsi FIFO OVERFLOW error: 0x%lx\n", error);
 		}
 	}
 
@@ -2411,7 +2411,7 @@ static void dsi_ctrl_handle_error_status(struct dsi_ctrl *dsi_ctrl,
 						dsi_ctrl->cell_index,
 						0, 0, 0, 0);
 		}
-		pr_err("dsi FIFO UNDERFLOW error: 0x%lx\n", error);
+		pr_debug("dsi FIFO UNDERFLOW error: 0x%lx\n", error);
 	}
 
 	/* DSI PLL UNLOCK error */
