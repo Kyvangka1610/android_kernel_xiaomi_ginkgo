@@ -779,7 +779,7 @@ int pm_suspend(suspend_state_t state)
 	if (state <= PM_SUSPEND_ON || state >= PM_SUSPEND_MAX)
 		return -EINVAL;
 
-	pr_info("suspend entry (%s)\n", mem_sleep_labels[state]);
+	pr_debug("suspend entry (%s)\n", mem_sleep_labels[state]);
 
 #ifdef CONFIG_PM_SLEEP_MONITOR
 	start_suspend_mon();
@@ -797,7 +797,7 @@ int pm_suspend(suspend_state_t state)
 	stop_suspend_mon();
 #endif
 
-	pr_info("suspend exit\n");
+	pr_debug("suspend exit\n");
 	measure_wake_up_time();
 	return error;
 }
