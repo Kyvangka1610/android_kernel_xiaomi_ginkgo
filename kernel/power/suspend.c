@@ -660,7 +660,7 @@ int suspend_devices_and_enter(suspend_state_t state)
 	if (error) {
 		last_dev = suspend_stats.last_failed_dev + REC_FAILED_NUM - 1;
 		last_dev %= REC_FAILED_NUM;
-		pr_err("Some devices failed to suspend, or early wake event detected\n");
+		pr_debug("Some devices failed to suspend, or early wake event detected\n");
 		log_suspend_abort_reason("%s device failed to suspend, or early wake event detected",
 			suspend_stats.failed_devs[last_dev]);
 		goto Recover_platform;

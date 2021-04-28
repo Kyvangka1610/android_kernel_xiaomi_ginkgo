@@ -237,7 +237,7 @@ struct dentry *msm_vidc_debugfs_init_drv(void)
 	struct dentry *f = debugfs_create_##__type(__name, 0644,	\
 		dir, __value);                                                \
 	if (IS_ERR_OR_NULL(f)) {                                              \
-		dprintk(VIDC_ERR, "Failed creating debugfs file '%pd/%s'\n",  \
+		dprintk(VIDC_DBG, "Failed creating debugfs file '%pd/%s'\n",  \
 			dir, __name);                                         \
 		f = NULL;                                                     \
 	}                                                                     \
@@ -286,7 +286,7 @@ struct dentry *msm_vidc_debugfs_init_core(struct msm_vidc_core *core,
 	snprintf(debugfs_name, MAX_DEBUGFS_NAME, "core%d", core->id);
 	dir = debugfs_create_dir(debugfs_name, parent);
 	if (IS_ERR_OR_NULL(dir)) {
-		dprintk(VIDC_ERR, "Failed to create debugfs for msm_vidc\n");
+		dprintk(VIDC_DBG, "Failed to create debugfs for msm_vidc\n");
 		goto failed_create_dir;
 	}
 	if (IS_ERR_OR_NULL(debugfs_create_file("info", 0444, dir, core, &core_info_fops))) {
@@ -506,7 +506,7 @@ struct dentry *msm_vidc_debugfs_init_inst(struct msm_vidc_inst *inst,
 
 	dir = debugfs_create_dir(debugfs_name, parent);
 	if (IS_ERR_OR_NULL(dir)) {
-		dprintk(VIDC_ERR, "Failed to create debugfs for msm_vidc\n");
+		dprintk(VIDC_DBG, "Failed to create debugfs for msm_vidc\n");
 		goto failed_create_dir;
 	}
 
