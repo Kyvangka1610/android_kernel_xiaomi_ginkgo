@@ -1070,7 +1070,7 @@ int sde_cp_crtc_set_property(struct drm_crtc *crtc,
 
 #ifdef CONFIG_DRM_MSM_KCAL_CTRL
 	if (prop_node->feature == SDE_CP_CRTC_DSPP_PCC) {
-		pr_info("%s pcc kad kcal\n",__func__);
+		pr_debug("%s pcc kad kcal\n",__func__);
 		g_pcc_crtc = crtc;
 		g_pcc_property = property;
 		g_pcc_val = val;
