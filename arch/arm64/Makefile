@@ -10,7 +10,7 @@
 #
 # Copyright (C) 1995-2001 by Russell King
 
-LDFLAGS_vmlinux	:=--no-undefined -X -z norelro
+LDFLAGS_vmlinux	:=--no-undefined -X
 CPPFLAGS_vmlinux.lds = -DTEXT_OFFSET=$(TEXT_OFFSET)
 GZFLAGS		:=-9
 
@@ -137,7 +137,7 @@ else
 ifeq ($(ld-name),bfd)
 LDFLAGS		+= -maarch64elfb
 else
-LDFLAGS		+= -maarch64linuxb
+LDFLAGS		+= -maarch64linuxb -z norelro
 endif
 endif
 UTS_MACHINE	:= aarch64_be
@@ -152,10 +152,14 @@ else
 ifeq ($(ld-name),bfd)
 LDFLAGS		+= -maarch64elf
 else
-LDFLAGS		+= -maarch64linux
+LDFLAGS		+= -maarch64linux -z norelro
 endif
 endif
 UTS_MACHINE	:= aarch64
+endif
+
+ifeq ($(CONFIG_LD_LLD), y)
+KBUILD_LDFLAGS	+= -z norelro
 endif
 
 CHECKFLAGS	+= -D__aarch64__ -m64
