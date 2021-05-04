@@ -261,7 +261,6 @@ static const struct of_device_id qcom_cpufreq_match_list[] __initconst = {
 	{ .compatible = "qcom,msm8996", .data = &match_data_kryo },
 	{},
 };
-MODULE_DEVICE_TABLE(of, qcom_cpufreq_match_list);
 
 /*
  * Since the driver depends on smem and nvmem drivers, which may
