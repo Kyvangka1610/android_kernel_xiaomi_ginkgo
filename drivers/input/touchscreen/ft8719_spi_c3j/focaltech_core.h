@@ -50,7 +50,6 @@
 #include <asm/uaccess.h>
 #include <linux/firmware.h>
 #include <linux/debugfs.h>
-#include <linux/pm_qos.h>
 #include <linux/mutex.h>
 #include <linux/workqueue.h>
 #include <linux/wait.h>
@@ -172,7 +171,6 @@ struct fts_ts_data {
     spinlock_t irq_lock;
     struct mutex report_mutex;
     struct mutex bus_lock;
-    struct pm_qos_request pm_qos_req;
     int irq;
     int log_level;
     int fw_is_running;      /* confirm fw is running when using spi:default 0 */
