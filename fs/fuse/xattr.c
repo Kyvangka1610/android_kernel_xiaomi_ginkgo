@@ -234,7 +234,6 @@ static const struct xattr_handler fuse_no_acl_access_xattr_handler = {
 	.name  = XATTR_NAME_POSIX_ACL_ACCESS,
 	.flags = ACL_TYPE_ACCESS,
 	.list  = no_xattr_list,
-	.get   = no_xattr_get,
 	.set   = no_xattr_set,
 };
 
@@ -242,7 +241,6 @@ static const struct xattr_handler fuse_no_acl_default_xattr_handler = {
 	.name  = XATTR_NAME_POSIX_ACL_DEFAULT,
 	.flags = ACL_TYPE_ACCESS,
 	.list  = no_xattr_list,
-	.get   = no_xattr_get,
 	.set   = no_xattr_set,
 };
 

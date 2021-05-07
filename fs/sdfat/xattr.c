@@ -106,7 +106,6 @@ static int sdfat_xattr_set(const struct xattr_handler *handler,
 
 const struct xattr_handler sdfat_xattr_handler = {
 	.prefix = "",  /* match anything */
-	.get = sdfat_xattr_get,
 	.set = sdfat_xattr_set,
 };
 
