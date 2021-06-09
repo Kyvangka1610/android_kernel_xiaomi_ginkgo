@@ -2789,7 +2789,7 @@ preferred_cluster(struct sched_cluster *cluster, struct task_struct *p)
 
 static inline struct sched_cluster *rq_cluster(struct rq *rq)
 {
-	return capacity_orig_of(cpu);
+	return NULL;
 }
 
 static inline int asym_cap_siblings(int cpu1, int cpu2) { return 0; }
