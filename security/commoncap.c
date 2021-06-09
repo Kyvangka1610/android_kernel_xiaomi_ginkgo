@@ -410,7 +410,7 @@ int cap_inode_getsecurity(struct inode *inode, const char *name, void **buffer,
 				 &tmpbuf, size, GFP_NOFS);
 	dput(dentry);
 
-	if (ret < 0)
+	if (ret < 0 || !tmpbuf)
 		return ret;
 
 	fs_ns = inode->i_sb->s_user_ns;
@@ -519,8 +519,7 @@ int cap_convert_nscap(struct dentry *dentry, void **ivalue, size_t size)
 	__u32 magic, nsmagic;
 	struct inode *inode = d_backing_inode(dentry);
 	struct user_namespace *task_ns = current_user_ns(),
-		*fs_ns = inode->i_sb->s_user_ns,
-		*ancestor;
+		*fs_ns = inode->i_sb->s_user_ns;
 	kuid_t rootid;
 	size_t newsize;
 
@@ -542,15 +541,6 @@ int cap_convert_nscap(struct dentry *dentry, void **ivalue, size_t size)
 	nsrootid = from_kuid(fs_ns, rootid);
 	if (nsrootid == -1)
 		return -EINVAL;
-
-	/*
-	 * Do not allow allow adding a v3 filesystem capability xattr
-	 * if the rootid field is ambiguous.
-	 */
-	for (ancestor = task_ns->parent; ancestor; ancestor = ancestor->parent) {
-		if (from_kuid(ancestor, rootid) == 0)
-			return -EINVAL;
-	}
 
 	newsize = sizeof(struct vfs_ns_cap_data);
 	nscap = kmalloc(newsize, GFP_ATOMIC);
