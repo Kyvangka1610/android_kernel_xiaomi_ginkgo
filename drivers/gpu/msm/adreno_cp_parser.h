@@ -15,6 +15,9 @@
 
 #include "adreno.h"
 
+extern const unsigned int a3xx_cp_addr_regs[];
+extern const unsigned int a4xx_cp_addr_regs[];
+
 /*
  * struct adreno_ib_object - Structure containing information about an
  * address range found in an IB
