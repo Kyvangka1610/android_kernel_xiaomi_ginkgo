@@ -4,13 +4,13 @@ echo -e "\nStarting compilation...\n"
 CONFIG=vendor/sixteen_defconfig
 KERNEL_DIR=$(pwd)
 PARENT_DIR="$(dirname "$KERNEL_DIR")"
-KERN_IMG="/home/kyvangka1610/out-new-R/out/arch/arm64/boot/Image.gz-dtb"
+KERN_IMG="$HOME/out-new-R/out/arch/arm64/boot/Image.gz-dtb"
 export KBUILD_BUILD_USER="elang"
 export KBUILD_BUILD_HOST="kyvangkaelang"
-export PATH="/home/kyvangka1610/toolchain/Sixteen_Clang/bin:$PATH"
-export LD_LIBRARY_PATH="/home/kyvangka1610/toolchain/Sixteen_Clang/lib:$LD_LIBRARY_PATH"
-export KBUILD_COMPILER_STRING="$(/home/kyvangka1610/toolchain/Sixteen_Clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
-export out=/home/kyvangka1610/out-new-R
+export PATH="$HOME/toolchain/Sixteen_Clang/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/toolchain/Sixteen_Clang/lib:$LD_LIBRARY_PATH"
+export KBUILD_COMPILER_STRING="$($HOME/toolchain/Sixteen_Clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
+export out=$HOME/out-new-R
 
 # Functions
 clang_build () {
@@ -43,7 +43,7 @@ if [ -f "$out/arch/arm64/boot/Image.gz" ] && [ -f "$out/arch/arm64/boot/dtbo.img
  cp -f $out/arch/arm64/boot/dtbo.img AnyKernel3
  cp -f $out/arch/arm64/boot/dts/qcom/trinket.dtb AnyKernel3/dtb
  cd AnyKernel3
- zip -r9 "/home/kyvangka1610/$ZIPNAME" *
+ zip -r9 "$HOME/$ZIPNAME" *
  cd ..
  rm -rf AnyKernel3
  echo -e "\nCompleted in $((SECONDS / 60)) minute(s) and $((SECONDS % 60)) second(s) !"
