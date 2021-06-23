@@ -34,7 +34,7 @@ echo -e "\nCompiling $ZIPNAME\n"
 clang_build
 if [ -f "$out/arch/arm64/boot/Image.gz-dtb" ] && [ -f "$out/arch/arm64/boot/dtbo.img" ]; then
  echo -e "\nKernel compiled succesfully! Zipping up...\n"
- ZIPNAME="SixTeen•Kernel•R•Ginkgo•Willow-$(date '+%Y%m%d-%H%M').zip"
+ ZIPNAME="SixTeen•Kernel•AOSP•R•Ginkgo•Willow-$(date '+%Y%m%d-%H%M').zip"
  if [ ! -d AnyKernel3 ]; then
   git clone -q https://github.com/Kyvangka1610/AnyKernel3.git
  fi;
