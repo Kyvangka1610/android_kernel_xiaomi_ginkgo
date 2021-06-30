@@ -18,12 +18,12 @@ clang_build () {
     make -j$(nproc --all) O=$out \
                           ARCH=arm64 \
                           CC="aarch64-elf-gcc" \
-                          AR="aarch64-elf-ar" \
-                          NM="aarch64-elf-nm" \
-                          LD="aarch64-elf-ld.bfd" \
-                          AS="aarch64-elf-as" \
-                          OBJCOPY="aarch64-elf-objcopy" \
-                          OBJDUMP="aarch64-elf-objdump" \
+                          AR="llvm-ar" \
+                          NM="llvm-nm" \
+                          LD="ld.lld" \
+                          AS="llvm-as" \
+                          OBJCOPY="llvm-objcopy" \
+                          OBJDUMP="llvm-objdump" \
                           CROSS_COMPILE_ARM32=$CROSS_COMPILE_ARM32
 }
 
