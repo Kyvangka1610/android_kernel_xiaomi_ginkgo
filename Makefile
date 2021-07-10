@@ -683,6 +683,10 @@ LLVM_DIS	:= llvm-dis
 export LLVM_AR LLVM_DIS
 endif
 
+ifdef CONFIG_GCC_GRAPHITE
+KBUILD_CFLAGS	+= -fgraphite-identity -floop-nest-optimize
+endif
+
 # The arch Makefile can set ARCH_{CPP,A,C}FLAGS to override the default
 # values of the respective KBUILD_* variables
 ARCH_CPPFLAGS :=
