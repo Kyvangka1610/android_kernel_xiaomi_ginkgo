@@ -4049,4 +4049,10 @@ static void __exit exit_f2fs_fs(void)
 	f2fs_destroy_trace_ios();
 }
 
-late_initcall(init_f2fs_fs);
+module_init(init_f2fs_fs)
+module_exit(exit_f2fs_fs)
+
+MODULE_AUTHOR("Samsung Electronics's Praesto Team");
+MODULE_DESCRIPTION("Flash Friendly File System");
+MODULE_LICENSE("GPL");
+MODULE_SOFTDEP("pre: crc32");
