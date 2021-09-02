@@ -705,7 +705,7 @@ static int dsi_panel_update_backlight(struct dsi_panel *panel,
 
 	return rc;
 }
-*/
+
 static int dsi_panel_update_pwm_backlight(struct dsi_panel *panel,
 	u32 bl_lvl)
 {
