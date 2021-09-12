@@ -1255,16 +1255,11 @@ static u32 dwc3_calc_trbs_left(struct dwc3_ep *dep)
 	 * pending to be processed by the driver.
 	 */
 	if (dep->trb_enqueue == dep->trb_dequeue) {
-<<<<<<< HEAD
-		tmp = dwc3_ep_prev_trb(dep, dep->trb_enqueue);
-		if (!tmp || tmp->ctrl & DWC3_TRB_CTRL_HWO)
-=======
 		/*
 		 * If there is any request remained in the started_list at
 		 * this point, that means there is no TRB available.
 		 */
 		if (!list_empty(&dep->started_list))
->>>>>>> 4b5389d362ad5e7f7892707556a4fd680f28df51
 			return 0;
 
 		return DWC3_TRB_NUM - 1;
