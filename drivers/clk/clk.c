@@ -50,6 +50,7 @@ struct clk_handoff_vdd {
 	struct clk_vdd_class *vdd_class;
 };
 
+<<<<<<< HEAD
 static LIST_HEAD(clk_handoff_vdd_list);
 static bool vdd_class_handoff_completed;
 static DEFINE_MUTEX(vdd_class_list_lock);
@@ -69,6 +70,8 @@ static struct hlist_head *all_lists[] = {
 	NULL,
 };
 
+=======
+>>>>>>> 1a9762f5e7ab0dd249f7f09ed8c5a21fa97a6c06
 /***    private data structures    ***/
 
 struct clk_core {
@@ -2708,6 +2711,7 @@ static struct hlist_head *orphan_list[] = {
 	NULL,
 };
 
+<<<<<<< HEAD
 static void clk_state_subtree(struct clk_core *c)
 {
 	int vdd_level = 0;
@@ -2758,6 +2762,8 @@ static const struct file_operations clk_state_fops = {
 	.release	= single_release,
 };
 
+=======
+>>>>>>> 1a9762f5e7ab0dd249f7f09ed8c5a21fa97a6c06
 static void clk_summary_show_one(struct seq_file *s, struct clk_core *c,
 				 int level)
 {
