@@ -1106,14 +1106,6 @@
 
 	thermal_zones: thermal-zones {};
 
-	dcc: dcc_v2@1be2000 {
-		compatible = "qcom,dcc-v2";
-		reg = <0x1be2000 0x1000>,
-			<0x1bef000 0x1000>;
-		reg-names = "dcc-base", "dcc-ram-base";
-		dcc-ram-offset = <0x1000>;
-	};
-
 	tsens0: tsens@4410000 {
 		compatible = "qcom,sm6150-tsens";
 		reg = <0x4410000 0x8>,
@@ -1956,14 +1948,6 @@
 			<1 618 0 300000>;  /* 75 MHz */
 		clocks = <&clock_gcc GCC_PRNG_AHB_CLK>;
 		clock-names = "iface_clk";
-	};
-
-	qcom_tzlog: tz-log@0c125720 {
-		compatible = "qcom,tz-log";
-		reg = <0x0c125720 0x3000>;
-		qcom,hyplog-enabled;
-		hyplog-address-offset = <0x410>;
-		hyplog-size-offset = <0x414>;
 	};
 
 	spmi_bus: qcom,spmi@1c40000 {
