@@ -989,7 +989,7 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
 		 */
 		ret = __ww_mutex_add_waiter(&waiter, lock, ww_ctx);
 		if (ret)
-			goto err_early_kill;
+			goto err_early_backoff;
 
 		waiter.ww_ctx = ww_ctx;
 	}
