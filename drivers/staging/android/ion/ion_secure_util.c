@@ -285,6 +285,8 @@ int ion_hyp_assign_from_flags(u64 base, u64 size, unsigned long flags)
 		if (vmids[i] == VMID_CP_SEC_DISPLAY ||
 		    vmids[i] == VMID_CP_DSP_EXT)
 			modes[i] = PERM_READ;
+		else if (vmids[i] == VMID_CP_CDSP)
+			modes[i] = PERM_READ | PERM_WRITE | PERM_EXEC;
 		else
 			modes[i] = PERM_READ | PERM_WRITE;
 
