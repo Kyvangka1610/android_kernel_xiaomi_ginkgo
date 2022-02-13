@@ -4842,7 +4842,8 @@ static const struct file_operations dbgfs_filters_fops = {
 
 int dvb_dmxdev_init(struct dmxdev *dmxdev, struct dvb_adapter *dvb_adapter)
 {
-	int i, ret;
+	int i;
+	struct dmx_caps caps;
 
 	if (dmxdev->demux->open(dmxdev->demux) < 0)
 		return -EUSERS;
@@ -4876,6 +4877,18 @@ int dvb_dmxdev_init(struct dmxdev *dmxdev, struct dvb_adapter *dvb_adapter)
 
 	dvb_ringbuffer_init(&dmxdev->dvr_buffer, NULL, 8192);
 	dvb_ringbuffer_init(&dmxdev->dvr_input_buffer, NULL, 8192);
+
+	/* Disable auto buffer flushing if plugin does not allow it */
+	if (dmxdev->demux->get_caps) {
+		dmxdev->demux->get_caps(dmxdev->demux, &caps);
+		if (!(caps.caps & DMX_CAP_AUTO_BUFFER_FLUSH))
+			overflow_auto_flush = 0;
+	}
+
+	if (dmxdev->demux->debugfs_demux_dir)
+		debugfs_create_file("filters", 0444,
+			dmxdev->demux->debugfs_demux_dir, dmxdev,
+			&dbgfs_filters_fops);
 
 	return 0;
 
