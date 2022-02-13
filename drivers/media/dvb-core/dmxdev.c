@@ -4842,7 +4842,7 @@ static const struct file_operations dbgfs_filters_fops = {
 
 int dvb_dmxdev_init(struct dmxdev *dmxdev, struct dvb_adapter *dvb_adapter)
 {
-	int i;
+	int i, ret;
 	struct dmx_caps caps;
 
 	if (dmxdev->demux->open(dmxdev->demux) < 0)
