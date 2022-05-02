@@ -975,9 +975,6 @@ int mmc_add_host(struct mmc_host *host)
 {
 	int err;
 
-	WARN_ON((host->caps & MMC_CAP_SDIO_IRQ) &&
-		!host->ops->enable_sdio_irq);
-
 	err = device_add(&host->class_dev);
 	if (err)
 		return err;
