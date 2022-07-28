@@ -212,6 +212,11 @@ static void __cold process_random_ready_list(void)
  *
  *********************************************************************/
 
+enum {
+	CRNG_RESEED_START_INTERVAL = HZ,
+	CRNG_RESEED_INTERVAL = 60 * HZ
+};
+
 /* There is one of these per entropy source */
 struct timer_rand_state {
 	cycles_t last_time;
@@ -1006,12 +1011,6 @@ void add_interrupt_randomness(int irq)
 	queue_work_on(raw_smp_processor_id(), system_highpri_wq, &fast_pool->mix);
 }
 EXPORT_SYMBOL_GPL(add_interrupt_randomness);
-
-/* There is one of these per entropy source */
-struct timer_rand_state {
-	unsigned long last_time;
-	long last_delta, last_delta2;
-};
 
 /*
  * This function adds entropy to the entropy "pool" by using timing
