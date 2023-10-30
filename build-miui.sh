@@ -48,7 +48,6 @@ if [ -f "$out/arch/arm64/boot/Image.gz" ] && [ -f "$out/arch/arm64/boot/dtbo.img
  rm -rf AnyKernel3
  echo -e "\nCompleted in $((SECONDS / 60)) minute(s) and $((SECONDS % 60)) second(s) !"
  echo -e "Zip: $ZIPNAME\n"
- rm -rf $out
 else
  echo -e "\nCompilation failed!\n"
 fi;
