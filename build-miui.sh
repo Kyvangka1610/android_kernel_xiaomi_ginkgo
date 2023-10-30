@@ -7,9 +7,9 @@ PARENT_DIR="$(dirname "$KERNEL_DIR")"
 KERN_IMG="$HOME/out-new-R/out/arch/arm64/boot/Image.gz-dtb"
 export KBUILD_BUILD_USER="elang"
 export KBUILD_BUILD_HOST="kyvangkaelang"
-export PATH="$HOME/toolchain/Clang-r416183c2/bin:$PATH"
-export LD_LIBRARY_PATH="$HOME/toolchain/Clang-r416183c2/lib:$LD_LIBRARY_PATH"
-export KBUILD_COMPILER_STRING="$($HOME/toolchain/Clang-r416183c2/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
+export PATH="$HOME/toolchain/Sixteen_Clang/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/toolchain/Sixteen_Clang/lib:$LD_LIBRARY_PATH"
+export KBUILD_COMPILER_STRING="$($HOME/toolchain/Sixteen_Clang/bin/clang --version | head -n 1 | perl -pe 's/\((?:http|git).*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//' -e 's/^.*clang/clang/')"
 export out=$HOME/out-new-R-miui
 
 # Functions
@@ -24,8 +24,8 @@ clang_build () {
 			  OBJCOPY="llvm-objcopy" \
 			  OBJDUMP="llvm-objdump" \
                           CLANG_TRIPLE=aarch64-linux-gnu- \
-                          CROSS_COMPILE=$HOME/toolchain/aarch64-linux-android-4.9/bin/aarch64-linux-android- \
-                          CROSS_COMPILE_ARM32=$HOME/toolchain/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
+                          CROSS_COMPILE=aarch64-linux-gnu- \
+                          CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 }
 
 # Build kernel
