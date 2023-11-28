@@ -5236,6 +5236,12 @@ CONFIG_SENSORS_SSC=y
 CONFIG_AINUR_DTS_SW=y
 
 #
+# KernelSU
+#
+CONFIG_KSU=y
+# CONFIG_KSU_DEBUG is not set
+
+#
 # Firmware Drivers
 #
 CONFIG_ARM_PSCI_FW=y
