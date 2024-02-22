@@ -130,3 +130,7 @@ kernel/configs/android-*.cfg
 #Ignoring Android.bp link file
 #
 Android.bp
+
+# Ignore KernelSU folders
+KernelSU/
+drivers/kernelsu

@@ -1,5 +1,14 @@
 echo -e "\nStarting compilation...\n"
 
+# Setup and apply patch KernelSU in root dir
+if ! [ -d "$KERNEL_DIR"/KernelSU ]; then
+	curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s main
+	git apply KernelSU-hook.patch
+else
+		echo -e "Setup KernelSU failed, stopped build now..."
+		exit 1
+fi
+
 # ENV
 CONFIG=vendor/sixteen_defconfig
 KERNEL_DIR=$(pwd)
